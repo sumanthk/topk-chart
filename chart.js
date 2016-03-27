@@ -1,8 +1,13 @@
 
-var dataFile = "data1.tsv";
+var dataFile = "data.tsv";
+$('document').ready(function () {
+    $('select').change(function () {
+        dataFile = $( "select option:selected").val()+'.tsv';
+    })
+});
 
 setInterval(function () {
-d3.select("body").html('');
+d3.select(".line-chart").html('');
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
@@ -21,7 +26,7 @@ var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left");
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select(".line-chart").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
@@ -29,7 +34,7 @@ var svg = d3.select("body").append("svg")
 
 
 
-    dataFile = (dataFile === "data.tsv") ? "data1.tsv" : "data.tsv";
+//    dataFile = (dataFile === "data.tsv") ? "data1.tsv" : "data.tsv";
     d3.tsv(dataFile, type, function(error, data) {
       if (error) throw error;
 
