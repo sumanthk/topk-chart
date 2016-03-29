@@ -1,0 +1,68 @@
+<html>
+    <link rel="stylesheet" type="text/css" href="chart.css">
+<title>Topk Charting</title>
+<body>
+	<style type="text/css">
+	  	.dashboard .leftPane {
+	      position: absolute;
+	      left: 0px;
+	      top: 0;
+	      height: 100%;
+	      width: 72px;
+	      z-index: 1020;
+	      background: #939393;
+	      -webkit-animation: slideInLeft 0.5s;
+	      -moz-animation: slideInLeft 0.5s;
+	      -ms-animation: slideInLeft 0.5s;
+	      -o-animation: slideInLeft 0.5s;
+	      animation: slideInLeft 0.5s;
+		}
+
+	   	.line-chart {
+	   	 margin-left : 100px;
+	   	}
+
+	   	.widget .widgetBody, .fullScreenContainer .widget .widgetBody {
+		    width: calc(100% - 10px);
+		    left: 5px;
+		}
+
+	   	.dashboard .widgetLabel.top, .small .widgetLabel.bottom {
+	   		/*margin-left : 100px;*/
+		    height: 32px;
+		    width: 100%;
+		    padding: 10px 0 0 0;
+		}
+
+		.widget.small .axisLabel.inline, .axisLabel.inline {
+			/*margin-left : 100px;*/
+		    display: inline-block;
+		    position: static;
+		    margin: 0 5px;
+		}
+
+	</style>
+
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <link  rel="stylesheet" href='font-awesome.css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css' />
+
+    <div class="dashboard">
+	    <div class="leftpane">
+
+	    </div>
+    </div>
+    
+    <script src="chart.js"></script>
+    
+	<div class="line-chart">
+		
+<!-- 		<div class= "widgetLabel bottom">
+			<div class="axisLabel group inline">Group: City</div>
+		</div>	 -->
+	</div>
+
+
+</body>
+
+</html>
