@@ -58,3 +58,17 @@
     position: static;
     margin: 0 5px;
 }
+
+
+.selected-li+div {
+    color: #FABC2D !important;
+    font-weight: bold;
+}
+
+.hide {
+    display: none !important;
+}
+
+.fa-github-square {
+    cursor: pointer;
+}

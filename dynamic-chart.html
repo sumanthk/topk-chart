@@ -1,21 +1,72 @@
 <html>
     <link rel="stylesheet" type="text/css" href="dynamic-chart.css">
+    <link rel="stylesheet" type="text/css" href="za.css">
+    <link rel="stylesheet" type="text/css" href="za-core.css">
+    <link rel="stylesheet" type="text/css" href="za-main.css">
+    <link rel="stylesheet" type="text/css" href="za-icon.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+
 <title>Topk Charting</title>
 <body>
+    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="dynamic-chart.js"></script>
     <link  rel="stylesheet" href='font-awesome.css'>
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css' />
 
     <div class="dashboard">
-	    <div class="leftpane">
-
-	    </div>
+	    <div class="leftpane"></div>
+        <div class="modal hide zd-infopopup attributePalette in zd-palettepopup" data-name="Group" aria-hidden="false" style="display: block; top: -2.5e-05px; left: 365px;">
+           <div class="modal-header zd-infopopup-titlebar">
+              <button title="" value="dialog-back" class="zd icon back" style="display:none;"></button>
+              <h3 class="dialog-head zd-infopopup-header">Group</h3>
+              <div class="clearfix"></div>
+           </div>
+           <div class="modal-body dialog-body zd-infopopup-body" style="max-height: 573px;">
+              <div class="nav nav-tabs nav-stacked">
+                 <legend class="subhead">Attribute</legend>
+                 <ul class="nav nav-tabs nav-stacked">
+                    <li>
+                       <span class="zd icon checkbox radio selected-li"><span class="zd checked selected"></span></span>
+                       <div class="attributeItem">
+                          <div class="text">data</div>
+                       </div>
+                    </li>
+                    <li>
+                       <span class="zd icon checkbox radio"><span class="zd checked "></span></span>
+                       <div class="attributeItem">
+                          <div class="text">data1</div>
+                       </div>
+                    </li>
+                    <li>
+                       <span class="zd icon checkbox radio"><span class="zd checked "></span></span>
+                       <div class="attributeItem">
+                          <div class="text">Make</div>
+                       </div>
+                    </li>
+                    <li>
+                       <span class="zd icon checkbox radio"><span class="zd checked "></span></span>
+                       <div class="attributeItem">
+                          <div class="text">Model</div>
+                       </div>
+                    </li>
+                    <li>
+                       <span class="zd icon checkbox radio"><span class="zd checked "></span></span>
+                       <div class="attributeItem">
+                          <div class="text">State</div>
+                       </div>
+                    </li>
+                 </ul>
+              </div>
+           </div>
+           <div class="zd-infopopup-pointer" style="border-width: 14px; border-style: solid; border-color: transparent rgba(50, 50, 50, 0.901961) transparent transparent; top: 60px; left: -28px;">
+              <div class="zd-infopopup-pointer-arrow"></div>
+           </div>
+        </div>
     </div>
-    
-    <script src="dynamic-chart.js"></script>
-    
+
 	<div class="line-chart">
-		
+
 <!-- 		<div class= "widgetLabel bottom">
 			<div class="axisLabel group inline">Group: City</div>
 		</div>	 -->

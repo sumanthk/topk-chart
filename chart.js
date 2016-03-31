@@ -6,8 +6,13 @@ $('document').ready(function () {
     })
 });
 
+
 setInterval(function () {
-d3.select(".line-chart").html('');
+    console.log("here");
+    draw(dataFile);
+}, 1000);
+
+function draw (dataFile) {
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
@@ -64,10 +69,11 @@ var svg = d3.select(".line-chart").append("svg")
           .attr("width", x.rangeBand())
           .attr("y", function(d) { return y(d.count); })
           .attr("height", function(d) { return height - y(d.count); });
+        
     });
 
     function type(d) {
       d.count = +d.count;
       return d;
     }
-}, 1000);
+}
