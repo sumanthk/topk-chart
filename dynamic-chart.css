@@ -40,6 +40,12 @@
 	 margin-left : 100px;
 }
 
+.line {
+  fill: none;
+  stroke: #444;
+  stroke-width: 1.5px;
+}
+
 .widget .widgetBody, .fullScreenContainer .widget .widgetBody {
     width: calc(100% - 10px);
     left: 5px;
