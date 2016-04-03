@@ -2,8 +2,8 @@
   fill: steelblue;
 }
 
-.bar:hover {
-  fill: brown;
+.error-bar {
+  fill: red;
 }
 
 .axis {
