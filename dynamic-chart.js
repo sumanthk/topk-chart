@@ -52,7 +52,8 @@ $('document').ready(function () {
         $('.dashboard .zd-infopopup').toggleClass('hide');
     });
 
-    setInterval(function () {
+    (function () {
+//    setInterval(function () {
         d3.select(".line-chart").html('');
         var margin = {top: 20, right: 20, bottom: 30, left: 40},
             width = 960 - margin.left - margin.right,
@@ -60,6 +61,10 @@ $('document').ready(function () {
 
         var x = d3.scale.ordinal()
             .rangeRoundBands([0, width], .1);
+
+        var x2 = d3.scale.ordinal()
+            .rangeBands([0, width], 0.7);
+
 
         var y = d3.scale.linear()
             .range([height, 0]);
@@ -78,54 +83,68 @@ $('document').ready(function () {
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+        var line = d3.svg.line()
+           .x(function(d, i) {
+             return x2(d.item) + i; })
+           .y(function(d, i) { return y(d.count); });
 
-            // dataFile = (dataFile === "data.tsv") ? "data1.tsv" : "data.tsv";
-            d3.tsv(dataFile, type, function(error, data) {
-              if (error) throw error;
 
-              x.domain(data.map(function(d) { return d.item; }));
-              y.domain([0, d3.max(data, function(d) { return d.count; })]);
+        // dataFile = (dataFile === "data.tsv") ? "data1.tsv" : "data.tsv";
+        d3.tsv(dataFile, type, function(error, data) {
+          if (error) throw error;
 
-              svg.append("g")
-                  .attr("class", "x axis")
-                  .attr("transform", "translate(0," + height + ")")
-                  .call(xAxis)
-                  .append("text")
-                  .attr("x", 750)
-                  .attr("y", 30)
-                  .attr("dx", ".71em")
-                  .style("text-anchor", "end")
-                  .text("Item Number");
+          x.domain(data.map(function(d) { return d.item; }));
+          x2.domain(data.map(function(d) { return d.item; }));
+          y.domain([0, d3.max(data, function(d) { return d.count; })]);
 
-              svg.append("g")
-                  .attr("class", "y axis")
-                  .call(yAxis)
-                  .append("text")
-                  .attr("transform", "rotate(-90)")
-                  .attr("y", 6)
-                  .attr("dy", ".71em")
-                  .style("text-anchor", "end")
-                  .text("Count");
+          svg.append("g")
+              .attr("class", "x axis")
+              .attr("transform", "translate(0," + height + ")")
+              .call(xAxis)
+              .append("text")
+              .attr("x", 750)
+              .attr("y", 30)
+              .attr("dx", ".71em")
+              .style("text-anchor", "end")
+              .text("Item Number");
 
-              svg.selectAll(".bar")
-                  .data(data)
-                  .enter().append("rect")
-                  .attr("class", "bar")
-                  .attr("x", function(d) { return x(d.item); })
-                  .attr("width", x.rangeBand())
-                  // .attr("y", function(d) { return y(d.count); })
-                  // .attr("height", function(d) { return height - y(d.count); })
-                  .attr("y", height)
-                  .attr("height", 0)
-                  .transition()
-                  .delay(function (d, i) { return i*100; })
-                  .attr("y", function (d, i) { return y(d.count); })
-                  .attr("height", function (d) { return height - y(d.count); });
-            });
+          svg.append("g")
+              .attr("class", "y axis")
+              .call(yAxis)
+              .append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", 6)
+              .attr("dy", ".71em")
+              .style("text-anchor", "end")
+              .text("Count");
+
+          svg.selectAll(".bar")
+              .data(data)
+              .enter().append("rect")
+              .attr("class", "bar")
+              .attr("x", function(d) { return x(d.item); })
+              .attr("width", x.rangeBand())
+              // .attr("y", function(d) { return y(d.count); })
+              // .attr("height", function(d) { return height - y(d.count); })
+              .attr("y", height)
+              .attr("height", 0)
+              .transition()
+              .delay(function (d, i) { return i*100; })
+              .attr("y", function (d, i) { return y(d.count); })
+              .attr("height", function (d) { return height - y(d.count); });
+
+            svg.append("path")
+               .datum(data)
+               .attr("class", "line")
+               .attr("d", line);
+           });
+
+
 
             function type(d) {
               d.count = +d.count;
               return d;
             }
-     }, 3000);
+//     }, 3000);
+    })();
 });
