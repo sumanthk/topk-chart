@@ -1,5 +1,5 @@
 $('document').ready(function () {
-        var dataFile = "data.tsv";
+        var dataFile = "data1.tsv";
     // ***********************************************************************************************************
     // Adding panel buttons on the left
       var icons = ["home", "github-square"];
@@ -86,7 +86,8 @@ $('document').ready(function () {
         var line = d3.svg.line()
            .x(function(d, i) {
              return x2(d.item) + i; })
-           .y(function(d, i) { return y(d.count); });
+           .y(function(d, i) { 
+               return height - Number(d.errCnt); });
 
 
         // dataFile = (dataFile === "data.tsv") ? "data1.tsv" : "data.tsv";

@@ -42,7 +42,7 @@
 
 .line {
   fill: none;
-  stroke: #444;
+  stroke: red;
   stroke-width: 1.5px;
 }
 
