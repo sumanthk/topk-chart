@@ -86,7 +86,7 @@ $('document').ready(function () {
         var line = d3.svg.line()
            .x(function(d, i) {
              return x2(d.item) + i; })
-           .y(function(d, i) { 
+           .y(function(d, i) {
                return height - Number(d.errCnt); });
 
 
@@ -133,6 +133,19 @@ $('document').ready(function () {
               .delay(function (d, i) { return i*100; })
               .attr("y", function (d, i) { return y(d.count); })
               .attr("height", function (d) { return height - y(d.count); });
+
+          svg.selectAll(".error-bar")
+              .data(data)
+              .enter().append("rect")
+              .attr("class", "error-bar")
+              .attr("x", function(d) { return x(d.item); })
+              .attr("width", x.rangeBand())
+              .attr("y", height)
+              .attr("height", 0)
+              .transition()
+              .delay(function (d, i) { return i*100; })
+              .attr("y", function (d, i) { return y(d.count); })
+              .attr("height", function (d) { return Number(d.errCnt); });
 
             svg.append("path")
                .datum(data)
