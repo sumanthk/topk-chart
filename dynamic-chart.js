@@ -1,11 +1,11 @@
 $('document').ready(function () {
-        var dataFile = "data1.tsv";
+        var dataFile = "Products.tsv";
     // ***********************************************************************************************************
     // Adding panel buttons on the left
-      var icons = ["home", "github-square"];
+      var icons = ["home", "tachometer","github-square"];
 
       var hoveredStyle = { "background-color": "lightgray" };
-      var clickedStyle = { "background-color": "#7777BB" };
+    // var clickedStyle = { "background-color": "#7777BB" };
 
       // This style will be applied per icon
       var defaultStyle = {
@@ -23,9 +23,9 @@ $('document').ready(function () {
             return "icon fa fa-3x fa-" + d; // This is where the magic happens !!!! see 'd' there?
           })
           .style(defaultStyle)
-          .on("click",function(d) {
-             d3.select(this).style(clickedStyle);
-          })
+     //     .on("click",function(d) {
+     //        d3.select(this).style(clickedStyle);
+     //     })
           .on("mouseover", function(){
             d3.select(this).style(hoveredStyle);
           });
@@ -48,23 +48,27 @@ $('document').ready(function () {
     });
 
 
-    $('i.fa-github-square').click(function () {
+    $('i.fa-tachometer').click(function () {
         $('.dashboard .zd-infopopup').toggleClass('hide');
+    });
+    
+    $('i.fa-github-square').click(function () {
+//        $('.dashboard .zd-infopopup').toggleClass('hide');
+          window.open("https://gecgithub01.walmart.com/njangir/team-voltron");
     });
 
     (function () {
 //    setInterval(function () {
         d3.select(".line-chart").html('');
         var margin = {top: 20, right: 20, bottom: 30, left: 40},
-            width = 960 - margin.left - margin.right,
-            height = 500 - margin.top - margin.bottom;
+            width = 1160 - margin.left - margin.right,
+            height = 650 - margin.top - margin.bottom;
 
         var x = d3.scale.ordinal()
             .rangeRoundBands([0, width], .1);
 
         var x2 = d3.scale.ordinal()
             .rangeBands([0, width], 0.7);
-
 
         var y = d3.scale.linear()
             .range([height, 0]);
@@ -79,7 +83,7 @@ $('document').ready(function () {
 
         var svg = d3.select(".line-chart").append("svg")
             .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
+            .attr("height", height + margin.top + margin.bottom + 40)
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -102,8 +106,14 @@ $('document').ready(function () {
               .attr("class", "x axis")
               .attr("transform", "translate(0," + height + ")")
               .call(xAxis)
+              .selectAll("text")
+              .attr("y", 0)
+              .attr("x", 5)
+              .attr("dy", ".35em")
+              .attr("transform", "rotate(90)")
+              .style("text-anchor", "start")    
               .append("text")
-              .attr("x", 750)
+              .attr("x", 850)
               .attr("y", 30)
               .attr("dx", ".71em")
               .style("text-anchor", "end")
@@ -114,7 +124,7 @@ $('document').ready(function () {
               .call(yAxis)
               .append("text")
               .attr("transform", "rotate(-90)")
-              .attr("y", 6)
+              .attr("y", -15)
               .attr("dy", ".71em")
               .style("text-anchor", "end")
               .text("Count");
@@ -130,7 +140,7 @@ $('document').ready(function () {
               .attr("y", height)
               .attr("height", 0)
               .transition()
-              .delay(function (d, i) { return i*100; })
+              .delay(function (d, i) { return i*10; })
               .attr("y", function (d, i) { return y(d.count); })
               .attr("height", function (d) { return height - y(d.count); });
 
@@ -143,14 +153,14 @@ $('document').ready(function () {
               .attr("y", height)
               .attr("height", 0)
               .transition()
-              .delay(function (d, i) { return i*100; })
+              .delay(function (d, i) { return i*10; })
               .attr("y", function (d, i) { return y(d.count); })
-              .attr("height", function (d) { return Number(d.errCnt); });
+              .attr("height", function (d) { return height - y(d.errCnt); });
 
-            svg.append("path")
-               .datum(data)
-               .attr("class", "line")
-               .attr("d", line);
+//            svg.append("path")
+//               .datum(data)
+//               .attr("class", "line")
+//               .attr("d", line);
            });
 
 
@@ -159,6 +169,6 @@ $('document').ready(function () {
               d.count = +d.count;
               return d;
             }
-//     }, 3000);
+//     }, 5000);
     })();
 });
