@@ -51,7 +51,7 @@ $('document').ready(function () {
     $('i.fa-tachometer').click(function () {
         $('.dashboard .zd-infopopup').toggleClass('hide');
     });
-    
+
     $('i.fa-github-square').click(function () {
 //        $('.dashboard .zd-infopopup').toggleClass('hide');
           window.open("https://gecgithub01.walmart.com/njangir/team-voltron");
@@ -93,6 +93,10 @@ $('document').ready(function () {
            .y(function(d, i) {
                return height - Number(d.errCnt); });
 
+        var div = d3.select("body").append("div")   // declare the properties for the div used for the tooltips
+            .attr("class", "tooltip")               // apply the 'tooltip' class
+            .style("opacity", 0);
+
 
         // dataFile = (dataFile === "data.tsv") ? "data1.tsv" : "data.tsv";
         d3.tsv(dataFile, type, function(error, data) {
@@ -111,7 +115,7 @@ $('document').ready(function () {
               .attr("x", 5)
               .attr("dy", ".35em")
               .attr("transform", "rotate(90)")
-              .style("text-anchor", "start")    
+              .style("text-anchor", "start")
               .append("text")
               .attr("x", 850)
               .attr("y", 30)
@@ -139,6 +143,30 @@ $('document').ready(function () {
               // .attr("height", function(d) { return height - y(d.count); })
               .attr("y", height)
               .attr("height", 0)
+              .on("mouseover", function(d) {  // the mouseover event
+                  div.transition()
+                      .style("opacity", .85);
+                  // var string = "<img src=http://i5.wal.co/dfw/dce07b8c-9986/k2-_ec60c751-0da8-4fb5-8bde-d3e534ef4bcb.v1.jpg-9ab899275f884f3532203bff5e031c928f2d6f6b-webp-450x450.webp>";
+                  var string = '';
+                  $.ajax({
+                      async: false,
+                      url: 'http://www.walmart.com/ip/'+d.item
+                      })
+                      .done(function (data) {
+                          var beginningIndex = data.indexOf('img itemprop=image src="');
+                          strippedData = data.slice(beginningIndex);
+                          var enddingIndex = strippedData.indexOf('class');
+                          string = "<img src=\""+strippedData.slice(24, enddingIndex-2)+"\"/>";
+                      });
+                  div .html(string) //this will add the image on mouseover
+                      .style("left", (d3.event.pageX + 10) + "px")
+                      .style("top", (d3.event.pageY + 50) + "px")
+                      .style("font-color", "white");
+
+                  })
+                .on('mouseout', function(d) {
+                    div.style("opacity", 0);
+                })
               .transition()
               .delay(function (d, i) { return i*10; })
               .attr("y", function (d, i) { return y(d.count); })
